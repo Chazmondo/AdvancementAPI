@@ -50,7 +50,7 @@ public class AdvancementAPI {
         return description;
     }
     public void setBackground(String url){
-        this.background = background;
+        this.background = url;
     }
 
 
