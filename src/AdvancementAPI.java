@@ -29,10 +29,11 @@ import java.util.*;
  * @author PROgrammer_JARvis - rework and combining
  * @author ysl3000 - useful advice and bug-tracking at PullRequests
  */
+@SuppressWarnings({"unused", "unchecked", "deprecation"})
 public class AdvancementAPI {
     //TODO Reward API <-
     private NamespacedKey id;
-    private int counter = 1;
+	private int counter = 1;
     private String
             title = "Untitled",
             parent,
@@ -189,7 +190,6 @@ public class AdvancementAPI {
     	return this;
     }
 
-    @SuppressWarnings("unchecked")
     public String getJSON() {
         JSONObject json = new JSONObject();
 
@@ -306,7 +306,6 @@ public class AdvancementAPI {
     	}
     }
 
-    @SuppressWarnings("deprecation")
     public AdvancementAPI add() {
         try {
             Bukkit.getUnsafe().loadAdvancement(id, getJSON());
@@ -317,7 +316,6 @@ public class AdvancementAPI {
         return this;
     }
 
-    @SuppressWarnings("deprecation")
     public AdvancementAPI remove() {
         Bukkit.getUnsafe().removeAdvancement(id);
         return this;
@@ -392,7 +390,7 @@ public class AdvancementAPI {
 
 
     //BEGIN UTIL
-    protected static JSONObject convertItemToJSON(ItemStack item,JSONObject itemJSON){
+	protected static JSONObject convertItemToJSON(ItemStack item,JSONObject itemJSON){
         itemJSON.put("item", "minecraft:"+ item.getType().name().toLowerCase());
         itemJSON.put("amount", item.getAmount());
         itemJSON.put("data",item.getData().getData());
