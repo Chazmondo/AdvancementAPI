@@ -39,14 +39,15 @@ public class AdvancementAPI {
     private TextComponent title, description;
     private FrameType frame;
     private boolean announce = true, toast = true, hidden = true;
-    private int counter = 1;
+    private int counter = 1, data;
 
     private Set<Trigger.TriggerBuilder> triggers;
 
-    private AdvancementAPI(NamespacedKey id, String parent, String icon, String background, TextComponent title, TextComponent description, FrameType frame, boolean announce, boolean toast, boolean hidden, int counter, Set<Trigger.TriggerBuilder> triggers) {
+    private AdvancementAPI(NamespacedKey id, String parent, String icon, int data, String background, TextComponent title, TextComponent description, FrameType frame, boolean announce, boolean toast, boolean hidden, int counter, Set<Trigger.TriggerBuilder> triggers) {
         this.id = id;
         this.parent = parent;
         this.icon = icon;
+        this.data = data;
         this.background = background;
         this.title = title;
         this.description = description;
@@ -94,6 +95,7 @@ public class AdvancementAPI {
 
         JsonObject icon = new JsonObject();
         icon.addProperty("item", getIcon());
+        icon.addProperty("data", getData());
 
         JsonObject display = new JsonObject();
         display.add("icon", icon);
@@ -132,7 +134,11 @@ public class AdvancementAPI {
     public String getIcon() {
         return this.icon;
     }
-
+    
+    public String getData() {
+        return this.icon;
+    }
+    
     public static JsonElement getJsonFromComponent(TextComponent textComponent) {
         return gson.fromJson(ComponentSerializer.toString(textComponent), JsonElement.class);
 
@@ -288,7 +294,7 @@ public class AdvancementAPI {
         private boolean announce;
         private boolean toast;
         private boolean hidden;
-        private int counter;
+        private int counter, data = 0;
         private ArrayList<Trigger.TriggerBuilder> triggers;
 
         AdvancementAPIBuilder() {
@@ -333,6 +339,11 @@ public class AdvancementAPI {
             return this;
         }
 
+        public AdvancementAPIBuilder data(int data) {
+            this.data = data;
+            return this;
+        }
+        
         public AdvancementAPIBuilder background(String background) {
             this.background = background;
             return this;
@@ -399,7 +410,7 @@ public class AdvancementAPI {
                     triggers = java.util.Collections.unmodifiableSet(triggers);
             }
 
-            return new AdvancementAPI(id, parent, icon, background, title, description, frame, announce, toast, hidden, counter, triggers);
+            return new AdvancementAPI(id, parent, icon, data, background, title, description, frame, announce, toast, hidden, counter, triggers);
         }
 
         public String toString() {
